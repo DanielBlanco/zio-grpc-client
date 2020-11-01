@@ -1,0 +1,23 @@
+# Generated files
+# ------------------------------------------------------------------------
+/out
+project/project
+project/target
+target
+domain/target
+server/target
+shared/target
+
+# Others
+# ------------------------------------------------------------------------
+.metals
+.bloop
+.env
+*.class
+*.log
+tags
+.*.swp
+.*.swo
+.DS_Store
+tmuxp.*
+/docs
