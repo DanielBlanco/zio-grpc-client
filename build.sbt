@@ -1,14 +1,26 @@
-import Dependencies._
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "com.novacore"
+ThisBuild / organizationName := "novacore"
 
-ThisBuild / scalaVersion     := "2.13.3"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
-ThisBuild / organizationName := "example"
+lazy val commonSettings = Seq(
+  scalaVersion := Deps.vScala
+)
 
 lazy val root = (project in file("."))
   .settings(
     name := "grpc-client",
-    libraryDependencies += scalaTest % Test
+    update / aggregate := false,
+    commonSettings,
+    libraryDependencies ++= Seq(
+      Deps.grpc,
+      Deps.scalapb,
+      Deps.scalapbJson4s,
+      Deps.scalaTest % Test
+    ),
+    Compile / PB.targets := Seq(
+      scalapb.gen(grpc = true) -> (sourceManaged in Compile).value,
+      scalapb.zio_grpc.ZioCodeGenerator -> (sourceManaged in Compile).value
+    )
   )
 
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
+run / fork := true

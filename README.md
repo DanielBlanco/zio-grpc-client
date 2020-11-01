@@ -1,6 +1,6 @@
 # gRPC client using zio-gRPC
 
-Sample project.
+Sample project that connects to zio-grpc-server and prints the results.
 
 ----
 
